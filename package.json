@@ -1,0 +1,23 @@
+{
+  "name": "unit-14-homework",
+  "version": "1.0.0",
+  "description": "A full tech blog with articles stored on backend server and presented on a front end interface for the user to interact with.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j92pruitt/tech-blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j92pruitt/tech-blog/issues"
+  },
+  "homepage": "https://github.com/j92pruitt/tech-blog#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
