@@ -7,8 +7,10 @@ router.post('/', async (req, res) => {
         
         const modelResponse = await User.create(req.body);
 
-        req.session.user_id = userData.user_id;
+        req.session.user_id = userData.id;
         req.session.logged_in = true;
+
+        console.log(userData.id);
 
         res.status(200).json(modelResponse);
 
@@ -36,10 +38,10 @@ router.post('/login', async (req, res) => {
             return;
         }
 
-        req.session.user_id = userData.user_id;
+        req.session.user_id = userData.id;
         req.session.logged_in = true;
 
-        res.json({ user: userData, message: 'You are now logged in.' });
+        res.json({ user: userData, message: `You are now logged in. Id = ${userData.id}` });
 
     } catch (error) {
         res.status(500).json(error)

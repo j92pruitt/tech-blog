@@ -1,14 +1,14 @@
 const Comment = require("./Comment");
-const Post = require("./Post");
+const Blog = require("./Blog");
 const User = require("./User");
 
-User.hasMany(Post);
-Post.belongsTo(User);
+User.hasMany(Blog);
+Blog.belongsTo(User);
 
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-Post.hasMany(Comment);
+Blog.hasMany(Comment);
 Comment.belongsTo(User);
 
-module.exports = {User, Post, Comment}
+module.exports = {User, Blog, Comment}

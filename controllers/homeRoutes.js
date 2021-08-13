@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const Post = require('../models/Post');
+const Blog = require('../models/Blog');
 
 const router = require('express').Router();
 
@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
 
     try {
         
-        const postData = await Post.findAll();
+        const postData = await Blog.findAll();
         res.render('homepage', { postData });
 
     } catch (error) {
