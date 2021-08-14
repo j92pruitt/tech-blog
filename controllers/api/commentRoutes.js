@@ -1,19 +1,19 @@
 const router = require('express').Router();
-const { Blog } = require('../../models');
+const { Comment } = require('../../models');
 
 router.post('/', async (req, res) => {
 
     try {
-
-        const newBlog = await Blog.create({
+        
+        const newComment = await Comment.create({
             ...req.body,
             UserId: req.session.user_id
         });
 
-        res.status(200).json(newBlog);
+        res.status(200).json(newComment);
 
-    } catch (error) {
-        res.status(400).json(error);
+    } catch (err) {
+        res.status(500).json(err)
     }
 
 });
@@ -22,9 +22,9 @@ router.put('/:id', async (req, res) => {
 
     try {
         
-        const modelResponse = await Blog.update({
+        const modelResponse = await Comment.update({
             ...req.body,
-            UserId: req.session.user_id 
+            UserId: req.session.user_id
         },
         {
             where: {
@@ -40,17 +40,16 @@ router.put('/:id', async (req, res) => {
 
         res.status(200).json(modelResponse)
 
-    } catch (error) {
-        res.status(500).json(error)
+    } catch (err) {
+        res.status(500).json(err)
     }
-
 });
 
 router.delete('/:id', async (req, res) => {
 
     try {
 
-        const modelResponse = await Blog.destroy({
+        const modelResponse = await Comment.destroy({
             where: {
                 id: req.params.id,
                 UserId: req.session.user_id
@@ -64,10 +63,10 @@ router.delete('/:id', async (req, res) => {
 
         res.status(200).json(modelResponse);
 
-    } catch (error) {
-        res.status(500).json(error)
+    } catch (err) {
+        res.status(500).json(err)
     }
 
-})
+});
 
 module.exports = router;
