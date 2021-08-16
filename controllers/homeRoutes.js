@@ -17,7 +17,10 @@ router.get('/', async (req, res) => {
 
         const blogs = blogData.map((blog) => blog.get({ plain: true }));
 
-        res.render('homepage', { blogs });
+        res.render('homepage', { 
+            blogs,
+            logged_in: req.session.logged_in 
+        });
 
     } catch (error) {
      
@@ -43,7 +46,10 @@ router.get('/dashboard', async (req, res) => {
 
         const blogs = blogData.map((blog) => blog.get({ plain: true }));
 
-        res.render('dashboard', { blogs });
+        res.render('dashboard', { 
+            blogs,
+            logged_in: req.session.logged_in
+        });
 
     } catch (err) {
         res.status(500).json(err)
@@ -81,7 +87,11 @@ router.get('/blogs/:id', async (req, res) => {
 
         const comments = commentData.map((comment) => comment.get({ plain: true }));
         
-        res.render('blogWithComments', {blog, comments});
+        res.render('blogWithComments', {
+            blog,
+            comments,
+            logged_in: req.session.logged_in
+        });
 
     } catch (err) {
         console.error(err);
