@@ -1,5 +1,4 @@
-const { User } = require('../models');
-const Blog = require('../models/Blog');
+const { User, Comment, Blog } = require('../models');
 
 const router = require('express').Router();
 
@@ -7,42 +6,88 @@ router.get('/', async (req, res) => {
 
     try {
         
-        const postData = await Blog.findAll();
-        res.render('homepage', { postData });
+        const blogData = await Blog.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ['name']
+                }
+            ]
+        });
+
+        const blogs = blogData.map((blog) => blog.get({ plain: true }));
+
+        res.render('homepage', { blogs });
 
     } catch (error) {
      
         res.status(500).json(error);
 
     }
-})
+});
 
-router.get('/comments', async (req, res) => {
-
+router.get('/dashboard', async (req, res) => {
     try {
         
-        const commentData = await Comment.findAll();
-        res.status(200).json(commentData)
+        const blogData = await Blog.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ['name']
+                }
+            ],
+            where: {
+                UserId: req.session.user_id
+            }
+        });
 
-    } catch (error) {
-        
-        res.status(500).json(error)
+        const blogs = blogData.map((blog) => blog.get({ plain: true }));
 
+        res.render('dashboard', { blogs });
+
+    } catch (err) {
+        res.status(500).json(err)
     }
-})
+});
 
-router.post('/signup', async (req, res) => {
+router.get('/login', (req, res) => {
+    res.render('login')
+});
 
+router.get('/blogs/:id', async (req, res) => {
+    
     try {
         
-        const sqlData = await User.create(req.body);
-        res.status(200).json(sqlData);
+        const blogData = await Blog.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['name']
+                }
+            ]
+        });
 
-    } catch (error) {
+        const blog = blogData.get({ plain: true});
+
+        const commentData = await Comment.findAll({
+            where: {BlogId: req.params.id},
+            include:[
+                {
+                    model: User,
+                    attributes: ['name']
+                }
+            ]
+        });
+
+        const comments = commentData.map((comment) => comment.get({ plain: true }));
         
-        res.status(500).json(error);
+        res.render('blogWithComments', {blog, comments});
 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err)
     }
+
 })
 
 module.exports = router;
