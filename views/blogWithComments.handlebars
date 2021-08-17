@@ -1,4 +1,14 @@
 <div class="text-center" id="blog" data-id="{{id}}">
+    {{#if owner}}
+    <div class="display-flex justify-space-between">
+        <div class="col-md-4">
+            <a href="/blogs/update/{{id}}"><button class="btn btn-sm btn-primary">Update Post</button></a>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-sm btn-danger" id="delete-btn">Delete Post</button>
+        </div>
+    </div>
+    {{/if}}
     <h2>{{title}}</h2>
     <p>{{content}}</p>
     <p>Created by {{User.name}} on {{format_date createdAt}}</p>

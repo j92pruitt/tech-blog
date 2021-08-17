@@ -1,7 +1,8 @@
+const BlogId = document.getElementById('blog').getAttribute('data-id');
+
 const newCommentHandler = async (event) => {
     event.preventDefault();
 
-    const BlogId = document.getElementById('blog').getAttribute('data-id');
     const content = document.getElementById('content').value.trim();
 
     if (content && BlogId) {
@@ -19,4 +20,19 @@ const newCommentHandler = async (event) => {
     }
 }
 
+const delButtonHandler = async (event) => {
+
+    const response = await fetch(`/api/blogs/${BlogId}`, {
+    method: 'DELETE',
+    });
+
+    if (response.ok) {
+    document.location.replace('/dashboard');
+    } else {
+    alert('Failed to delete project');
+    }
+
+  };
+
 document.getElementById('new-comment').addEventListener('submit', newCommentHandler)
+document.getElementById('delete-btn').addEventListener('click', delButtonHandler)
