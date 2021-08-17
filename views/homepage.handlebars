@@ -19,7 +19,7 @@
     <h2>
       <a href="/blogs/{{blog.id}}">{{blog.title}}</a>
     </h2>
-    <p>Created by {{blog.User.name}} on {{blog.CreatedAt}}</p>
+    <p>Created by {{blog.User.name}} on {{format_date blog.createdAt}}</p>
   </div>
   <div class="col-md-7">
     <p>

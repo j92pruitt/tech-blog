@@ -1,7 +1,7 @@
 <div class="text-center" id="blog" data-id="{{id}}">
     <h2>{{title}}</h2>
     <p>{{content}}</p>
-    <p>Created by {{User.name}} on {{createdAt}}</p>
+    <p>Created by {{User.name}} on {{format_date createdAt}}</p>
     <form class="form" id="new-comment">
         <div class="form-group">
             <label for="content">Comment:</label>
@@ -17,7 +17,7 @@
         {{#each comments as |comment|}}
         <div class="row">
             <p>{{comment.content}} <br>
-            posted by {{comment.User.name}} on {{comment.createdAt}}</p>
+            posted by {{comment.User.name}} on {{format_date comment.createdAt}}</p>
         </div>
         {{/each}}
     </div>
