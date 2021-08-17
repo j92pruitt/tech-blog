@@ -5,16 +5,15 @@ router.post('/', async (req, res) => {
 
     try {
         
-        const modelResponse = await User.create(req.body);
+        const userData = await User.create(req.body);
 
         req.session.user_id = userData.id;
         req.session.logged_in = true;
 
-        console.log(userData.id);
-
-        res.status(200).json(modelResponse);
+        res.status(200).json(userData);
 
     } catch (error) {
+        console.error(error);
         res.status(500).json(error)
     }
 
